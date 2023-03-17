@@ -1,0 +1,64 @@
+---
+name:  Image Build Scan and Push to AWS ECR
+on:
+  push:
+    branches: [ main, feature/** ]
+    paths:
+      - 'docker-hello-world-app/src/**'
+
+jobs:
+  build-and-push:
+    name: build-and-push-image-ecr-eu2
+    runs-on: [self-hosted, Linux, container-dev]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure Private SSH key
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SEMVER_SECRET_KEY }}
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: eu-west-2
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Automatic Tagging of Releases
+      id: increment-git-tag
+      run: |
+        cd ./docker-hello-world-app/ && make tag
+
+    - name: Dockerfile lint
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cd ./docker-hello-world-app/ && make lint
+
+    - name: Build and Tag the container image
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+      run: |
+        cd ./docker-hello-world-app/ && make build
+
+    - name: Run Trivy vulnerability scanner
+      id: scan-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+      run: |
+        cd ./docker-hello-world-app/ && make image-scan
+
+    - name: Push image to ECR
+      id: push-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+      run: |
+        cd ./docker-hello-world-app/ && make push
