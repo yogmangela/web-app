@@ -32,7 +32,7 @@ down:    ## to Stop and remove containers, networks  web app and db app
 
 # AWS_DEFAULT_REGION ?= eu-west-2
 # ECR_REPOSITORY ?= "web-app-dev"
-# ECR_REGISTRY ?= "100682590469.dkr.ecr.eu-west-2.amazonaws.com"
+# ECR_REGISTRY ?= "{{Your-ECR-REPO}}"
 # IMAGE_TAG ?= 0.0.4
 # DOCKER_USERNAME := AWS
 # PROJECT_NAME := "hello-world-app-prj"

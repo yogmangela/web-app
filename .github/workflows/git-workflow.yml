@@ -2,7 +2,7 @@
 name: hello-world
 on:
   push:
-    branches: [ main, feature/* ]
+    branches: [ main, feature/* ] # uncomment when running on runner
 jobs:
   build-and-push:
     name: hello-world
