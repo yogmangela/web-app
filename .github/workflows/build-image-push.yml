@@ -2,9 +2,10 @@
 name:  Image Build Scan and Push to AWS ECR
 on:
   push:
-    branches: [ main, feature/** ]
-    paths:
-      - 'docker-hello-world-app/src/**'
+    branches: [ main]
+    # branches: [ main, feature/** ]
+    # paths:
+    #   - 'docker-hello-world-app/src/**'
 
 jobs:
   build-and-push:
