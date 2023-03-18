@@ -13,23 +13,23 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Configure AWS credentials from AWS account
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-region: eu-west-2
-    - run: aws sts get-caller-identity
+    # - name: Configure AWS credentials from AWS account
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-region: eu-west-2
+    # - run: aws sts get-caller-identity
 
-    - name: terraform init
-      run: |
-        cd ./terraform/container-image-deploy-ec2 && make init
+    # - name: terraform init
+    #   run: |
+    #     cd ./terraform/container-image-deploy-ec2 && make init
 
-    - name: terraform validate
-      run: |
-        cd ./terraform/container-image-deploy-ec2 && make validate
+    # - name: terraform validate
+    #   run: |
+    #     cd ./terraform/container-image-deploy-ec2 && make validate
 
-    - name: terraform plan
-      run: |
-        cd ./terraform/container-image-deploy-ec2 && make plan
+    # - name: terraform plan
+    #   run: |
+    #     cd ./terraform/container-image-deploy-ec2 && make plan
 
 #    - uses: trstringer/manual-approval@v1
 #      with:
