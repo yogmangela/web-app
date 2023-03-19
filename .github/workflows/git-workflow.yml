@@ -40,12 +40,12 @@ jobs:
       run: |
         cd ./hello-world/ && make image-scan
 
-    # - name: Push image to ECR
-    #   id: push-image
-    #   env:
-    #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-    #   run: |
-    #     cd ./hello-world/ && make push
+    - name: Push image to docker hub
+      id: push-image
+      env:
+        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+      run: |
+        cd ./hello-world/ && make push
 # ===================================================================
     # - name: Configure AWS credentials from AWS account
     #   uses: aws-actions/configure-aws-credentials@v1

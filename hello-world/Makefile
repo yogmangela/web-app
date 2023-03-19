@@ -9,7 +9,7 @@ DOCKER_REPOSITORY ?= "web-app"
 # ECR_REGISTRY ?= "{Add-your-AWS-acc-id}.dkr.ecr.eu-west-2.amazonaws.com"
 DOCKER_REGISTRY ?= "yogmicroservices"
 DOCKER_HOST=$(HOST)
-IMAGE_TAG ?= 0.0.0
+IMAGE_TAG ?= 0.0.1
 PROJECT_NAME := "web-app-prj"
 IMAGE_NAME ?= "birthday"
 
