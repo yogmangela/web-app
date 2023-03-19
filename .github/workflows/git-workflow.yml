@@ -31,7 +31,7 @@ jobs:
       env:
         DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
       run: |
-        cd ./hello-world/ make build
+        cd ./hello-world/ && make build
 
     - name: Run Trivy vulnerability scanner
       id: scan-image
