@@ -79,7 +79,7 @@ build:   ## Build the container image locally
 	@echo "-------------------------------------------"
 	@echo "Building and tagging container image..."
 	@echo "-------------------------------------------"
-	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
+	docker build --platform=linux/amd64 -t ${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
 
 # # run locally only  AWS
 # .PHONY: login-ecr AWS
