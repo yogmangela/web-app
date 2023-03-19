@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, feature/** ]
     paths:
-      - 'hello-world/scr/**'
+      - 'hello-world/src/**'
 
 jobs:
   build-and-push:
