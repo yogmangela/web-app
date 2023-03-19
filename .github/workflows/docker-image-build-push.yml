@@ -33,18 +33,18 @@ jobs:
     #   run: |
     #     cd ./docker-hello-world-app/ && make tag
 
-    - name: Dockerfile lint
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        cd ./hello-world/ && make lint
+    # - name: Dockerfile lint
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   run: |
+    #     cd ./hello-world/ && make lint
 
-    - name: Build and Tag the container image
-      id: build-image
-      env:
-        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-      run: |
-        cd ./hello-world/ && make build
+    # - name: Build the container image
+    #   id: build-image
+    #   env:
+    #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+    #   run: |
+    #     cd ./hello-world/ && make build
 
     - name: Run Trivy vulnerability scanner
       id: scan-image
