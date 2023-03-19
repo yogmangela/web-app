@@ -10,7 +10,7 @@ DOCKER_REPOSITORY ?= "web-app"
 DOCKER_REGISTRY ?= "yogmicroservices"
 DOCKER_HOST=$(HOST)
 IMAGE_TAG ?= 0.0.0
-PROJECT_NAME := "web-app"
+PROJECT_NAME := "web-app-prj"
 IMAGE_NAME ?= "birthday"
 
 .PHONY: help
@@ -95,7 +95,7 @@ build:   ## Build the container image locally
 	@echo "-------------------------------------------"
 	@echo "Building and tagging container image..."
 	@echo "-------------------------------------------"
-	docker build --platform=linux/amd64 -t ${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
+	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
 
 # .PHONY: image-scan AWS
 # image-scan:      ## Run Trivy vulnerability scanner
@@ -118,8 +118,8 @@ image-scan:      ## Run Trivy vulnerability scanner
 	@echo "-----------------------------------------"
 	docker run --platform=linux/amd64 --rm \
 	    -v /var/run/docker.sock:/var/run/docker.sock \
-		-e DOCKER_REGISTRY=${DOCKER_REGISTRY} \
 		-e DOCKER_REPOSITORY=${DOCKER_REPOSITORY} \
+		-e DOCKER_REGISTRY=$(DOCKER_REGISTRY) \
 		-e IMAGE_TAG=${IMAGE_TAG} \
 		-e PROJECT_NAME=${PROJECT_NAME} \
 		-e IMAGE_NAME=${IMAGE_NAME} \

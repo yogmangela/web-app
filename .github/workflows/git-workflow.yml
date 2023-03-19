@@ -33,27 +33,19 @@ jobs:
       run: |
         cd ./hello-world/ && ls -al && pwd && make build
 
-    # - name: check pwd ls -al
-    #   id: build-image ls
-    #   env:
-    #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-    #   run: |
-    #     pwd && ls -al
+    - name: Run Trivy vulnerability scanner
+      id: scan-image
+      env:
+        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+      run: |
+        cd ./hello-world/ && make image-scan
 
-    # - name: Run Trivy vulnerability scanner
-    #   id: scan-image
-    #   env:
-    #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-    #   run: |
-    #     cd ./hello-world/ && make image-scan
-
-    # - name: Push image to ECR
-    #   id: push-image
-    #   env:
-    #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-
-    #   run: |
-    #     cd ./hello-world/ && make push
+    - name: Push image to ECR
+      id: push-image
+      env:
+        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+      run: |
+        cd ./hello-world/ && make push
 # ===================================================================
     # - name: Configure AWS credentials from AWS account
     #   uses: aws-actions/configure-aws-credentials@v1
