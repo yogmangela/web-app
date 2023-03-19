@@ -145,7 +145,7 @@ push:    ## Push image to AWS ECR AWS
 # 	docker rmi ${ECR_REGISTRY}/${ECR_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}	
 # 	docker image prune $(shell docker ps -a -q)
 
-# NOTE: run locally only
+# NOTE: run local only
 .PHONY: cleanup
 cleanup:   ## Clean up after push
 	docker rmi ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}	

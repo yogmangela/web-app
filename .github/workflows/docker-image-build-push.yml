@@ -37,7 +37,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        cd ./docker-hello-world-app/ && make lint
+        cd ./hello-world/ && make lint
 
     - name: Build and Tag the container image
       id: build-image
@@ -51,7 +51,7 @@ jobs:
       env:
         DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
       run: |
-        cd ./docker-hello-world-app/ && make image-scan
+        cd ./hello-world/ && make image-scan
 
     - name: Push image to ECR
       id: push-image
@@ -59,7 +59,7 @@ jobs:
         DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
 
       run: |
-        cd ./docker-hello-world-app/ && make push
+        cd ./hello-world/ && make push
 
     # - name: Build and Tag the container image
     #   id: build-image
@@ -67,7 +67,7 @@ jobs:
     #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
     #     IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
     #   run: |
-    #     cd ./docker-hello-world-app/ && make build
+    #     cd ./hello-world/ && make build
 
     # - name: Run Trivy vulnerability scanner
     #   id: scan-image
@@ -75,7 +75,7 @@ jobs:
     #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
     #     IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
     #   run: |
-    #     cd ./docker-hello-world-app/ && make image-scan
+    #     cd ./hello-world/ && make image-scan
 
     # - name: Push image to ECR
     #   id: push-image
