@@ -26,12 +26,19 @@ jobs:
       run: |
         docker login
 
-    - name: Build the container image
+    # - name: Build the container image
+    #   id: build-image
+    #   env:
+    #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+    #   run: |
+    #     cd ./hello-world/ && make build
+
+    - name: check pwd ls -al
       id: build-image
       env:
         DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
       run: |
-        cd ./hello-world/ && make build
+        pwd && ls -al
 
     # - name: Run Trivy vulnerability scanner
     #   id: scan-image
