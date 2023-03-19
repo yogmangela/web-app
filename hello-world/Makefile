@@ -74,7 +74,7 @@ login-docker:   ## Log in to AWS ECR to push image locally only
 	@echo "------------------------------------------------------------------"
 	docker login 
 
-# # run locally only
+# # run locally only  AWS
 # .PHONY: login-ecr AWS
 # login-ecr:   ## Log in to AWS ECR to push image locally only
 # 	@echo "------------------------------------"
@@ -97,7 +97,7 @@ build:   ## Build and Tag the container image
 	@echo "-------------------------------------------"
 	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
       
-# .PHONY: image-scan
+# .PHONY: image-scan AWS
 # image-scan:      ## Run Trivy vulnerability scanner
 # 	@echo "-----------------------------------------"
 # 	@echo "Running trivy vulnerability scanner..."
@@ -139,8 +139,14 @@ push:    ## Push image to AWS ECR AWS
 	@echo "----------------------------------------"
 	docker push ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}
 
+# # NOTE: run locally only AWS
+# .PHONY: cleanup
+# cleanup:   ## Clean up after push
+# 	docker rmi ${ECR_REGISTRY}/${ECR_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}	
+# 	docker image prune $(shell docker ps -a -q)
+
 # NOTE: run locally only
 .PHONY: cleanup
 cleanup:   ## Clean up after push
-	docker rmi ${ECR_REGISTRY}/${ECR_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}	
+	docker rmi ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}	
 	docker image prune $(shell docker ps -a -q)
