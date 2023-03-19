@@ -24,8 +24,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        make login-docker
-# docker login
+        docker login
 
     - name: Build the container image
       id: build-image
