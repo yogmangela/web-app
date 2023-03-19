@@ -164,7 +164,7 @@ api.add_resource(Divide, "/division")
 
 @app.route('/')
 def hello_world():
-    return "Hello Universe Happy Birthday 0.0.0"
+    return "Hello Universe Happy Birthday v0.0.0"
 
 
 if __name__=="__main__":
