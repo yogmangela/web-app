@@ -24,7 +24,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        docker login
+        make login-docker
+# docker login
 
     - name: Build the container image
       id: build-image
@@ -47,7 +48,7 @@ jobs:
       with:
         push: true
       run: |
-        docker login && cd ./hello-world/ && make push
+        make login-docker && cd ./hello-world/ && make push
 
 # ===================================================================
     # - name: Configure AWS credentials from AWS account
