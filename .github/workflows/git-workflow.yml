@@ -20,12 +20,12 @@ jobs:
       run: |
         cd ./hello-world/ && make lint
 
-    # - name: Build and Tag the container image
-    #   id: build-image
-    #   env:
-    #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-    #   run: |
-    #     cd ./hello-world/ && make build
+    - name: Build the container image
+      id: build-image
+      env:
+        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+      run: |
+        cd ./hello-world/ && make build
 
     # - name: Run Trivy vulnerability scanner
     #   id: scan-image
