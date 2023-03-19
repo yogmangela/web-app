@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, feature/** ]
     paths:
-      - 'docker-hello-world-app/src/**'
+      - 'hello-world/**'
 
 jobs:
   build-and-push:
@@ -44,7 +44,7 @@ jobs:
       env:
         DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
       run: |
-        cd ./docker-hello-world-app/ && make build
+        cd ./hello-world/ && make build
 
     - name: Run Trivy vulnerability scanner
       id: scan-image
