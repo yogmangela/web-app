@@ -57,7 +57,6 @@
     #   id: push-image
     #   env:
     #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-
     #   run: |
     #     cd ./hello-world/ && make push
 

@@ -44,8 +44,11 @@ jobs:
       id: push-image
       env:
         DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+      with:
+        push: true
       run: |
-        cd ./hello-world/ && make push
+        docker login && ./hello-world/ && make push
+
 # ===================================================================
     # - name: Configure AWS credentials from AWS account
     #   uses: aws-actions/configure-aws-credentials@v1

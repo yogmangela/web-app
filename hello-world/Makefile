@@ -79,7 +79,7 @@ build:   ## Build the container image locally
 	@echo "-------------------------------------------"
 	@echo "Building and tagging container image..."
 	@echo "-------------------------------------------"
-	docker build --platform=linux/amd64 -t	${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
+	docker build --platform=linux/amd64 -t	${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
 # 	docker build --platform=linux/amd64 -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
 
 .PHONY: image-scan
@@ -94,14 +94,14 @@ image-scan:      ## Run Trivy vulnerability scanner
 		-e IMAGE_TAG=${IMAGE_TAG} \
 		-e PROJECT_NAME=${PROJECT_NAME} \
 		-e IMAGE_NAME=${IMAGE_NAME} \
-		public.ecr.aws/aquasecurity/trivy:canary image ${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL" --timeout 30m
+		public.ecr.aws/aquasecurity/trivy:canary image ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL" --timeout 30m
 
 .PHONY: push
 push:    ## Push image to AWS ECR AWS
 	@echo "----------------------------------------"
 	@echo "Pushing image to AWS ECR registry..."
 	@echo "----------------------------------------"
-	docker push ${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}
+	docker push ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}
 
 # # run locally only  AWS
 # .PHONY: login-ecr AWS
