@@ -22,18 +22,18 @@ validate:    ## Validate TF config files
 	@echo "Terraform Validate"
 	terraform validate
 
-.PHONY: plan
-plan:     ## Generate terraform execution plan
-	@echo "Terraform Plan"
-	terraform plan
+# .PHONY: plan
+# plan:     ## Generate terraform execution plan
+# 	@echo "Terraform Plan"
+# 	terraform plan
 
-.PHONY: apply
-apply:    ## Execute actions proposed in Terraform plan
-	@echo "Terraform Apply"
-	terraform apply -auto-approve
+# .PHONY: apply
+# apply:    ## Execute actions proposed in Terraform plan
+# 	@echo "Terraform Apply"
+# 	terraform apply -auto-approve
 
-# NOTE: run locally only
-.PHONY: destroy
-destroy:    ## Destroy terraform resources created by previous "terraform apply"
-	@echo "Terraform Destroy"
-	terraform destroy
+# # NOTE: run locally only
+# .PHONY: destroy
+# destroy:    ## Destroy terraform resources created by previous "terraform apply"
+# 	@echo "Terraform Destroy"
+# 	terraform destroy
