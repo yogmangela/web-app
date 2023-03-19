@@ -123,7 +123,7 @@ image-scan:      ## Run Trivy vulnerability scanner
 		-e IMAGE_TAG=${IMAGE_TAG} \
 		-e PROJECT_NAME=${PROJECT_NAME} \
 		-e IMAGE_NAME=${IMAGE_NAME} \
-		public.ecr.aws/aquasecurity/trivy:canary image ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL"
+		public.ecr.aws/aquasecurity/trivy:canary image ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL" --timeout 30m
 
 # .PHONY: push
 # push:    ## Push image to AWS ECR AWS
