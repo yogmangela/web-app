@@ -26,12 +26,13 @@ jobs:
       run: |
         docker login
 
-    # - name: Build the container image
-    #   id: build-image
-    #   env:
-    #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-    #   run: |
-    #     cd ./hello-world/ && make build
+    - name: Build the container image
+      id: build-image
+      env:
+        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+      run: |
+        cd ./hello-world/ && ls -al && pwd 
+# && make build
 
     - name: check pwd ls -al
       id: build-image
