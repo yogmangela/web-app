@@ -31,8 +31,7 @@ jobs:
       env:
         DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
       run: |
-        cd ./hello-world/ && ls -al && pwd 
-# && make build
+        cd ./hello-world/ && ls -al && pwd && make build
 
     # - name: check pwd ls -al
     #   id: build-image ls
