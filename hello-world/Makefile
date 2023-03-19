@@ -11,7 +11,7 @@ DOCKER_REGISTRY ?= "yogmicroservices"
 DOCKER_HOST=$(HOST)
 IMAGE_TAG ?= 0.0.3
 PROJECT_NAME := "web-app"
-IMAGE_NAME ?= "happy-birth-day"
+IMAGE_NAME ?= "birthday"
 
 .PHONY: help
 help:    ## Show this help - team1 app
@@ -95,8 +95,8 @@ build:   ## Build the container image locally
 	@echo "-------------------------------------------"
 	@echo "Building and tagging container image..."
 	@echo "-------------------------------------------"
-	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
-      
+	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}
+
 # .PHONY: image-scan AWS
 # image-scan:      ## Run Trivy vulnerability scanner
 # 	@echo "-----------------------------------------"
