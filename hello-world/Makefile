@@ -94,7 +94,7 @@ image-scan:      ## Run Trivy vulnerability scanner
 		-e IMAGE_TAG=${IMAGE_TAG} \
 		-e PROJECT_NAME=${PROJECT_NAME} \
 		-e IMAGE_NAME=${IMAGE_NAME} \
-		public.ecr.aws/aquasecurity/trivy:canary image ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL" --timeout 30m
+		public.ecr.aws/aquasecurity/trivy:canary image ${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL" --timeout 30m
 
 # # run locally only  AWS
 # .PHONY: login-ecr AWS
