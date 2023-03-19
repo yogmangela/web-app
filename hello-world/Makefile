@@ -118,8 +118,8 @@ image-scan:      ## Run Trivy vulnerability scanner
 	@echo "-----------------------------------------"
 	docker run --platform=linux/amd64 --rm \
 	    -v /var/run/docker.sock:/var/run/docker.sock \
-		-e DOCKER_REPOSITORY=${DOCKER_REPOSITORY} \
 		-e DOCKER_REGISTRY=$(DOCKER_REGISTRY) \
+		-e DOCKER_REPOSITORY=${DOCKER_REPOSITORY} \
 		-e IMAGE_TAG=${IMAGE_TAG} \
 		-e PROJECT_NAME=${PROJECT_NAME} \
 		-e IMAGE_NAME=${IMAGE_NAME} \
