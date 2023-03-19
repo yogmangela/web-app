@@ -96,6 +96,13 @@ image-scan:      ## Run Trivy vulnerability scanner
 		-e IMAGE_NAME=${IMAGE_NAME} \
 		public.ecr.aws/aquasecurity/trivy:canary image ${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL" --timeout 30m
 
+.PHONY: push
+push:    ## Push image to AWS ECR AWS
+	@echo "----------------------------------------"
+	@echo "Pushing image to AWS ECR registry..."
+	@echo "----------------------------------------"
+	docker push ${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}
+
 # # run locally only  AWS
 # .PHONY: login-ecr AWS
 # login-ecr:   ## Log in to AWS ECR to push image locally only
@@ -132,13 +139,6 @@ image-scan:      ## Run Trivy vulnerability scanner
 # 	@echo "Pushing image to AWS ECR registry..."
 # 	@echo "----------------------------------------"
 # 	docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}
-
-.PHONY: push
-push:    ## Push image to AWS ECR AWS
-	@echo "----------------------------------------"
-	@echo "Pushing image to AWS ECR registry..."
-	@echo "----------------------------------------"
-	docker push ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}
 
 # # NOTE: run locally only AWS
 # .PHONY: cleanup
