@@ -9,7 +9,7 @@ DOCKER_REPOSITORY ?= "web-app"
 # ECR_REGISTRY ?= "{Add-your-AWS-acc-id}.dkr.ecr.eu-west-2.amazonaws.com"
 DOCKER_REGISTRY ?= "yogmicroservices"
 DOCKER_HOST=$(HOST)
-IMAGE_TAG ?= 0.0.3
+IMAGE_TAG ?= 0.0.0
 PROJECT_NAME := "web-app"
 IMAGE_NAME ?= "birthday"
 
@@ -95,7 +95,7 @@ build:   ## Build the container image locally
 	@echo "-------------------------------------------"
 	@echo "Building and tagging container image..."
 	@echo "-------------------------------------------"
-	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG}
+	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
 
 # .PHONY: image-scan AWS
 # image-scan:      ## Run Trivy vulnerability scanner
