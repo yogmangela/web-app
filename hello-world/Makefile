@@ -8,6 +8,7 @@ AWS_DEFAULT_REGION ?= eu-west-2
 DOCKER_REPOSITORY ?= "web-app"
 # ECR_REGISTRY ?= "{Add-your-AWS-acc-id}.dkr.ecr.eu-west-2.amazonaws.com"
 DOCKER_REGISTRY ?= "yogmicroservices"
+DOCKER_REG ?= "yogmicroservices/"
 DOCKER_HOST=$(HOST)
 IMAGE_TAG ?= 0.0.1
 PROJECT_NAME := "web-app-prj"
@@ -79,7 +80,7 @@ build:   ## Build the container image locally
 	@echo "-------------------------------------------"
 	@echo "Building and tagging container image..."
 	@echo "-------------------------------------------"
-	docker build -t $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY):$(PROJECT_NAME)-$(IMAGE_NAME)-$(IMAGE_TAG) ./src/
+	docker build -t $(DOCKER_REG)$(DOCKER_REPOSITORY):$(PROJECT_NAME)-$(IMAGE_NAME)-$(IMAGE_TAG) ./src/
 
 # docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
 # 	docker build --platform=linux/amd64 -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
