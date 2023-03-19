@@ -47,7 +47,7 @@ jobs:
       with:
         push: true
       run: |
-        docker login && ./hello-world/ && make push
+        docker login && cd ./hello-world/ && make push
 
 # ===================================================================
     # - name: Configure AWS credentials from AWS account
