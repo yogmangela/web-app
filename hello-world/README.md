@@ -11,11 +11,11 @@ To see all Make targets and their description run following command:
 ```bash
 make help
 
-# to run particular target, e.g.
+# to run particular target, e.g..
 make init
 ```
 
-### Provision AWS ECR resources locally
+### Provision AWS ECR resources locally.
 
 Execute make targets:
 ```bash
