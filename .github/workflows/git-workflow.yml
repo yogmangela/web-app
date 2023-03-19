@@ -20,6 +20,18 @@ jobs:
       run: |
         cd ./hello-world/ && make lint
 
+    - name: Docker login
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        make login-docker
+  
+    # - name: Login to Docker Hub
+    #     uses: ./
+    #     with:
+    #       username: ${{ secrets.DOCKERHUB_USERNAME }}
+    #       password: ${{ secrets.DOCKERHUB_TOKEN }}
+
     - name: Build the container image
       id: build-image
       env:
