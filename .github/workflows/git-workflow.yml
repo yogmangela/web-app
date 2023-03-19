@@ -34,12 +34,12 @@ jobs:
         cd ./hello-world/ && ls -al && pwd 
 # && make build
 
-    - name: check pwd ls -al
-      id: build-image ls
-      env:
-        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-      run: |
-        pwd && ls -al
+    # - name: check pwd ls -al
+    #   id: build-image ls
+    #   env:
+    #     DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+    #   run: |
+    #     pwd && ls -al
 
     # - name: Run Trivy vulnerability scanner
     #   id: scan-image
