@@ -36,24 +36,24 @@ validate:    ## Validate TF config files - team1 app
 	cd ./terraform/ && \
 	terraform validate
 
-.PHONY: plan
-plan:     ## Generate terraform execution plan - team1 app
-	@echo "Terraform Plan - AWS ECR"
-	cd ./terraform/ && \
-	terraform plan
+# .PHONY: plan
+# plan:     ## Generate terraform execution plan - team1 app
+# 	@echo "Terraform Plan - AWS ECR"
+# 	cd ./terraform/ && \
+# 	terraform plan
 
-.PHONY: apply
-apply:    ## Execute actions proposed in Terraform plan - team1 app
-	@echo "Terraform Apply - AWS ECR"
-	cd ./terraform/ && \
-	terraform apply -auto-approve
+# .PHONY: apply
+# apply:    ## Execute actions proposed in Terraform plan - team1 app
+# 	@echo "Terraform Apply - AWS ECR"
+# 	cd ./terraform/ && \
+# 	terraform apply -auto-approve
 
-# NOTE: run locally only
-.PHONY: destroy
-destroy:    ## Destroy terraform resources created by previous "terraform apply"
-	@echo "Terraform Destroy - AWS ECR"
-	cd ./terraform/ && \
-	terraform destroy
+# # NOTE: run locally only
+# .PHONY: destroy
+# destroy:    ## Destroy terraform resources created by previous "terraform apply"
+# 	@echo "Terraform Destroy - AWS ECR"
+# 	cd ./terraform/ && \
+# 	terraform destroy
 
 # Docker build scan push to ECR
 # ========================================================================
@@ -91,11 +91,11 @@ login-docker:   ## Log in to AWS ECR to push image locally only
 # 	docker build --platform=linux/amd64 -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
 
 .PHONY: build
-build:   ## Build and Tag the container image 
+build:   ## Build the container image locally
 	@echo "-------------------------------------------"
 	@echo "Building and tagging container image..."
 	@echo "-------------------------------------------"
-	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
+	docker build  -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
       
 # .PHONY: image-scan AWS
 # image-scan:      ## Run Trivy vulnerability scanner
