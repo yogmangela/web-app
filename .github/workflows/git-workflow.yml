@@ -35,7 +35,7 @@ jobs:
 # && make build
 
     - name: check pwd ls -al
-      id: build-image
+      id: build-image ls
       env:
         DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
       run: |
