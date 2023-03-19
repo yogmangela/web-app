@@ -45,8 +45,6 @@ jobs:
       id: push-image
       env:
         DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
-      with:
-        push: true
       run: |
         cd ./hello-world/ && make login-docker && make push
 
