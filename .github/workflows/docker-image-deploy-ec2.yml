@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, feature/** ]
     paths:
-        - 'terraform/container-image-deploy-ec2/**'
+        - 'terraform/image-deploy-to-ec2/**'
 jobs:
   build-and-push:
     name: hello-world-image-deploy
@@ -36,6 +36,6 @@ jobs:
 #        secret: ${{ github.TOKEN }}
 #        approvers: <approvers_name>
 
-    - name: terraform apply
-      run: |
-        cd ./terraform/container-image-deploy-ec2 && make apply
+    # - name: terraform apply
+    #   run: |
+    #     cd ./terraform/container-image-deploy-ec2 && make apply
