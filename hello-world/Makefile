@@ -79,7 +79,21 @@ build:   ## Build the container image locally
 	@echo "-------------------------------------------"
 	@echo "Building and tagging container image..."
 	@echo "-------------------------------------------"
-	docker build --platform=linux/amd64 -t ${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
+	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
+
+.PHONY: image-scan
+image-scan:      ## Run Trivy vulnerability scanner
+	@echo "-----------------------------------------"
+	@echo "Running trivy vulnerability scanner..."
+	@echo "-----------------------------------------"
+	docker run --platform=linux/amd64 --rm \
+	    -v /var/run/docker.sock:/var/run/docker.sock \
+		-e DOCKER_REGISTRY=$(DOCKER_REGISTRY) \
+		-e DOCKER_REPOSITORY=${DOCKER_REPOSITORY} \
+		-e IMAGE_TAG=${IMAGE_TAG} \
+		-e PROJECT_NAME=${PROJECT_NAME} \
+		-e IMAGE_NAME=${IMAGE_NAME} \
+		public.ecr.aws/aquasecurity/trivy:canary image ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL" --timeout 30m
 
 # # run locally only  AWS
 # .PHONY: login-ecr AWS
@@ -110,20 +124,6 @@ build:   ## Build the container image locally
 # 		-e PROJECT_NAME=${PROJECT_NAME} \
 # 		-e IMAGE_NAME=${IMAGE_NAME} \
 # 		public.ecr.aws/aquasecurity/trivy:canary image ${ECR_REGISTRY}/${ECR_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL"
-
-.PHONY: image-scan
-image-scan:      ## Run Trivy vulnerability scanner
-	@echo "-----------------------------------------"
-	@echo "Running trivy vulnerability scanner..."
-	@echo "-----------------------------------------"
-	docker run --platform=linux/amd64 --rm \
-	    -v /var/run/docker.sock:/var/run/docker.sock \
-		-e DOCKER_REGISTRY=$(DOCKER_REGISTRY) \
-		-e DOCKER_REPOSITORY=${DOCKER_REPOSITORY} \
-		-e IMAGE_TAG=${IMAGE_TAG} \
-		-e PROJECT_NAME=${PROJECT_NAME} \
-		-e IMAGE_NAME=${IMAGE_NAME} \
-		public.ecr.aws/aquasecurity/trivy:canary image ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} -s "HIGH,CRITICAL" --timeout 30m
 
 # .PHONY: push
 # push:    ## Push image to AWS ECR AWS
