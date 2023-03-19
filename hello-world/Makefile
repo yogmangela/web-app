@@ -74,6 +74,13 @@ login-docker:   ## Log in to AWS ECR to push image locally only
 	@echo "------------------------------------------------------------------"
 	docker login 
 
+.PHONY: build
+build:   ## Build the container image locally
+	@echo "-------------------------------------------"
+	@echo "Building and tagging container image..."
+	@echo "-------------------------------------------"
+	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
+
 # # run locally only  AWS
 # .PHONY: login-ecr AWS
 # login-ecr:   ## Log in to AWS ECR to push image locally only
@@ -89,13 +96,6 @@ login-docker:   ## Log in to AWS ECR to push image locally only
 # 	@echo "Building and tagging container image..."
 # 	@echo "-------------------------------------------"
 # 	docker build --platform=linux/amd64 -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
-
-.PHONY: build
-build:   ## Build the container image locally
-	@echo "-------------------------------------------"
-	@echo "Building and tagging container image..."
-	@echo "-------------------------------------------"
- 	docker build --platform=linux/amd64 -t ${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}:${PROJECT_NAME}-${IMAGE_NAME}-${IMAGE_TAG} ./src/
 
 # .PHONY: image-scan AWS
 # image-scan:      ## Run Trivy vulnerability scanner
