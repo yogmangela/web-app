@@ -5,6 +5,7 @@ on:
     branches: [ main, feature/** ]
     paths:
       - 'hello-world/**'
+      - 'birthday/**'
 
 jobs:
   build-and-push:

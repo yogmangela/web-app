@@ -26,7 +26,7 @@ print(f" ${days_to_birthday} days let to your birthday")
 
 @app.route('/')
 def hello_world():
-    return "Want to know your days to your DOB?"
+    return "Want to know your days to your dob?"
 
 if __name__=="__main__":
     app.run(host='0.0.0.0')
