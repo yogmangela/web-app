@@ -4,10 +4,14 @@
 
 ![alt text](./img/Birthday-app.png)
 
+# Pre-requesite:
+- make sure you have Docker login configured for local testing
+- Make sure to configure ``aws sso login`` for AWS deployment.
+
 ## Container - Build Child Docker Image, Scan and Push to ECR
 
 This directory includes two main deployment parts:
-1. Create a AWS ECR repository
+1. Create a AWS ECR repository using Terraform ``./terraform/image-deploy-to-ec2``
 2. Build child docker image from base image, scan and push to ECR
 
 ## Usage Part1 - Create an AWS ECR repository
@@ -48,9 +52,10 @@ make destroy
 
 ### Provision ECR resources via github actions CI
 
-The github actions `deploy-ecr.yml` pipeline will be triggered when certain conditions have been met such as:
-changes been applied to the `docker-hello-world-app/terraform/` directory only AND commits been pushed either from `main` or any `feature/` branches.
+The github actions `deploy-to-ecr.yml` pipeline will be triggered when certain conditions have been met such as:
+changes been applied to the `hello-world/terraform/` directory only AND commits been pushed either from `main` or any `feature/` branches.
 
+Note: ``all the Terraform codes are commented out due to no access to AWS account``
 
 ## Usage Part2 - Build child docker image, scan and push it to ECR locally
 
@@ -78,8 +83,8 @@ make cleanup
 
 ### Provision ECR resources via github actions CI
 
-The github actions `build-image-push.yml` pipeline will be triggered when certain conditions have been met such as:
-changes been applied to the `docker-hello-world-app/src/` directory only AND commits been pushed either from `main` or any `feature/` branches.
+The github actions `docker-build-image-push.yml` pipeline will be triggered when certain conditions have been met such as:
+changes been applied to the `hello-world-app/src/` directory only AND commits been pushed either from `main` or any `feature/` branches.
 
 ### Test deploying the 'Hello World' app image
 
