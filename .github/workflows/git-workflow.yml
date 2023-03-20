@@ -1,30 +1,67 @@
 ---
-name: hello-world
+name:  Image Build Scan and Push to AWS ECR
 on:
   push:
-    branches: [ main, feature/* ]
+    branches: [ main, feature/** ]
+    paths:
+      - 'hello-world/**'
+
 jobs:
   build-and-push:
-    name: hello-world
-    runs-on: self-hosted
+    name: build-and-ImageScane-push-image
+    runs-on: [self-hosted]
     steps:
     - name: Checkout
-      uses: actions/checkout@v2 
+      uses: actions/checkout@v2
 
-    - name: Configure AWS credentials from AWS account
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-region: eu-west-2
-    - run: aws sts get-caller-identity
-
-    - name: terraform init
+    - name: Dockerfile lint
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        make init
+        cd ./hello-world/ && make lint
 
-    - name: terraform plan
+    - name: login-docker
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        make plan
+        docker login
 
-    - name: terraform apply
+    - name: Build the container image
+      id: build-image
+      env:
+        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
       run: |
-        make apply
+        cd ./hello-world/ && make build
+
+    - name: Run Trivy vulnerability scanner
+      id: scan-image
+      env:
+        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+      run: |
+        cd ./hello-world/ && make image-scan
+
+    - name: Push image to docker hub
+      id: push-image
+      env:
+        DOCKER_REGISTRY: ${{ steps.login-docker.outputs.registry }}
+      run: |
+        cd ./hello-world/ && make login-docker && make push
+
+# ===================================================================
+    # - name: Configure AWS credentials from AWS account
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-region: eu-west-2
+    # - run: aws sts get-caller-identity
+
+    # - name: terraform init
+    #   run: |
+    #     make init
+
+    # - name: terraform plan
+    #   run: |
+    #     make plan
+
+    # - name: terraform apply
+    #   run: |
+    #     make apply

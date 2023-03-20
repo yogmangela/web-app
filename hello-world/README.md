@@ -1,4 +1,4 @@
-# Container Bakery - Build Child Docker Image, Scan and Push to ECR
+# Container - Build Child Docker Image, Scan and Push to ECR
 
 This directory includes two main deployment parts:
 1. Create a AWS ECR repository
@@ -11,11 +11,11 @@ To see all Make targets and their description run following command:
 ```bash
 make help
 
-# to run particular target, e.g.
+# to run particular target, e.g..
 make init
 ```
 
-### Provision AWS ECR resources locally
+### Provision AWS ECR resources locally.
 
 Execute make targets:
 ```bash
@@ -84,8 +84,8 @@ sudo -u ec2-user bash
 docker --version
 systemctl status docker
 # login to ECR and run with latest image tag
-aws ecr get-login-password --region eu-west-2 | docker login --username AWS  --password-stdin 100682590469.dkr.ecr.eu-west-2.amazonaws.com
-docker run -it -p 80:5000 100682590469.dkr.ecr.eu-west-2.amazonaws.com/flask-webapp-dev:frontend-apps-hello-world-0.0.1
+aws ecr get-login-password --region eu-west-2 | docker login --username AWS  --password-stdin {{Your-ECR-REPO}}
+docker run -it -p 80:5000 {{Your-ECR-REPO}}/flask-webapp-dev:frontend-apps-hello-world-0.0.1
 ```
 
 Then locate and click on the public IP of the `web-app-hello-world` EC2 instance. On the URL bar change to `http:\\<ec2-public-IP>`

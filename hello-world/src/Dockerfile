@@ -1,4 +1,4 @@
-FROM 100682590469.dkr.ecr.eu-west-2.amazonaws.com/contino-bakery:contino-bakery-python3.10-0.1.0
+FROM python:3
 
 WORKDIR /app
 
